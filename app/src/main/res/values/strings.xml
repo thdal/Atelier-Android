@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Atelier-Android</string>
+    <string name="txt_epsi">Epsi</string>
 </resources>
