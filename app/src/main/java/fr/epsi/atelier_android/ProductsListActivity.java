@@ -3,14 +3,12 @@ package fr.epsi.atelier_android;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
@@ -22,22 +20,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
-public class CategoriesActivity extends AtelierAndroidActivity{
-    static public void displayActivity(AtelierAndroidActivity activity){
-        Intent intent = new Intent(activity,GroupInfosActivity.class);
-        activity.startActivity(intent);
-    }
+public class ProductsListActivity extends AtelierAndroidActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categories);
-        // bouton retour arrière
+        setContentView(R.layout.activity_products_list);
         ImageView imageViewBack = findViewById(R.id.imageViewBack);
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,13 +35,18 @@ public class CategoriesActivity extends AtelierAndroidActivity{
                 onBackPressed();
             }
         });
+
+        Intent myIntent = getIntent(); // gets the previously created intent
+        String cheminJson = myIntent.getStringExtra("cheminJson");
+        System.out.println(cheminJson);
+
+
         //Je dois ajouter ces lignes afin de pouvoir faire mon appel asynchrone au WS dans le onCreate
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        System.out.println("backmisàjour|");
-        String json = jsonGetRequest("https://djemam.com/epsi/categories.json");
+        String json = jsonGetRequest(cheminJson);
         JSONObject object = null;
         JSONArray Jarray  = null;
         try {
@@ -60,15 +55,19 @@ public class CategoriesActivity extends AtelierAndroidActivity{
             for (int i = 0; i < Jarray.length(); i++)
             {
                 JSONObject Jasonobject = Jarray.getJSONObject(i);
-                String title = (String) Jasonobject.get("title");
-                String cheminJson = (String) Jasonobject.get("products_url");
+                String name = (String) Jasonobject.get("name");
+                String cheminPicture = (String) Jasonobject.get("picture_url");
+                System.out.println("boucleJson|");
+                System.out.println(name);
+                System.out.println(cheminPicture);
+
                 // Création dynamique des boutons dans la vue
                 Button newButton = new Button(this);
                 // On commence pas créer l'événement qui appélera la vue avec les bons paramètres
                 newButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(CategoriesActivity.this,ProductsListActivity.class);
+                        Intent intent = new Intent(ProductsListActivity.this,ProductsListActivity.class);
                         intent.putExtra("cheminJson", cheminJson);
                         startActivity(intent);
                     }
@@ -76,7 +75,7 @@ public class CategoriesActivity extends AtelierAndroidActivity{
                 //Ensuite on gère l'affichage de celui-ci, la partie front
                 LinearLayout l = (LinearLayout) findViewById(R.id.linearLayoutCategories);
                 //newButton.setGravity(Gravity.CENTER);
-                newButton.setText(title);
+                newButton.setText(name);
                 //newButton.setBackgroundColor(0xFF99D6D6);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.MATCH_PARENT,
@@ -92,6 +91,17 @@ public class CategoriesActivity extends AtelierAndroidActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+
+
+
+
+
+
+
+
+
     }
 
     @Override

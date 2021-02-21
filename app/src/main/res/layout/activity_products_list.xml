@@ -5,22 +5,23 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".CategoriesActivity">
+    tools:context=".ProductsListActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@android:color/holo_red_light">
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:text="@string/txt_Categories"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="@string/txt_ProductsList"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"/>
+
         <ImageView
             android:id="@+id/imageViewBack"
             android:layout_width="wrap_content"

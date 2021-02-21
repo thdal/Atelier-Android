@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".StudentInfoActivity">
+    <!-- Un seul bouton et un seul affichage je suis seul dans mon groupe -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_red_light">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="@string/txt_StudentInfo"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:adjustViewBounds="true"/>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imageViewStudent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/etudiant"
+                android:layout_marginBottom="50dp"
+                android:adjustViewBounds="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="Infos étudiant :"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="Dalens Thibaut"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="thibaut.dalens@epsi.fr"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="Groupe 2"
+                android:textColor="@color/black"
+                android:layout_marginBottom="50dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:id="@+id/textViewEpsiLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="@string/epsiLink"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

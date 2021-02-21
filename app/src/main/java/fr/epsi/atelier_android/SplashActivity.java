@@ -20,4 +20,9 @@ public class SplashActivity extends AtelierAndroidActivity {
             }
         },2000);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
