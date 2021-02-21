@@ -3,13 +3,17 @@ package fr.epsi.atelier_android;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.squareup.picasso.Picasso;
 import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
@@ -37,10 +41,11 @@ public class ProductsListActivity extends AtelierAndroidActivity {
         });
 
         Intent myIntent = getIntent(); // gets the previously created intent
+        String title = myIntent.getStringExtra("title");
+        TextView textViewTitle = (TextView)findViewById(R.id.textViewTitle);
+        textViewTitle.setText(title);
         String cheminJson = myIntent.getStringExtra("cheminJson");
         System.out.println(cheminJson);
-
-
         //Je dois ajouter ces lignes afin de pouvoir faire mon appel asynchrone au WS dans le onCreate
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -56,52 +61,42 @@ public class ProductsListActivity extends AtelierAndroidActivity {
             {
                 JSONObject Jasonobject = Jarray.getJSONObject(i);
                 String name = (String) Jasonobject.get("name");
+                String description = (String) Jasonobject.get("description");
                 String cheminPicture = (String) Jasonobject.get("picture_url");
-                System.out.println("boucleJson|");
-                System.out.println(name);
-                System.out.println(cheminPicture);
-
-                // Création dynamique des boutons dans la vue
-                Button newButton = new Button(this);
-                // On commence pas créer l'événement qui appélera la vue avec les bons paramètres
-                newButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(ProductsListActivity.this,ProductsListActivity.class);
-                        intent.putExtra("cheminJson", cheminJson);
-                        startActivity(intent);
-                    }
-                });
-                //Ensuite on gère l'affichage de celui-ci, la partie front
-                LinearLayout l = (LinearLayout) findViewById(R.id.linearLayoutCategories);
-                //newButton.setGravity(Gravity.CENTER);
-                newButton.setText(name);
-                //newButton.setBackgroundColor(0xFF99D6D6);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT
-                );
-                newButton.setMaxWidth(200);
-                params.gravity = Gravity.CENTER_HORIZONTAL;
-                //params.setMargins(0, 0, 0, 50);
-                newButton.setLayoutParams(params);
-                newButton.requestLayout();
-                l.addView(newButton);
+                // On prépare l'affichage de l'image à l'aide de la librairie Picasso et lui assigne une largeur et une hauteur
+                ImageView imageView = new ImageView(this);
+                Picasso.get().load(cheminPicture).into(imageView);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(120, 120);
+                imageView.setLayoutParams(layoutParams);
+                // Création dynamique des éléments dans la vue
+                TextView textViewName = new TextView(this);
+                TextView textViewDescription = new TextView(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.WRAP_CONTENT);
+                textViewName.setLayoutParams(params);
+                textViewDescription.setLayoutParams(params);
+                textViewName.setText(name);
+                textViewDescription.setText(description);
+                textViewName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                textViewDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                textViewDescription.setMaxLines(2);
+                // On initialise les différents layout de la vue
+                LinearLayout l1 = (LinearLayout) findViewById(R.id.linearLayoutProducts);
+                LinearLayout l2 = new LinearLayout(this);
+                LinearLayout l3 = new LinearLayout(this);
+                l2.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT,FrameLayout.LayoutParams.WRAP_CONTENT));
+                l3.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
+                l2.setOrientation(LinearLayout.HORIZONTAL);
+                l3.setOrientation(LinearLayout.VERTICAL);
+                // On fait les imbrications
+                l1.addView(l2);
+                l2.addView(imageView);
+                l2.addView(l3);
+                l3.addView(textViewName);
+                l3.addView(textViewDescription);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override

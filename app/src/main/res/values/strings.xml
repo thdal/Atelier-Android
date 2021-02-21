@@ -4,7 +4,7 @@
     <string name="txt_Groupinfos">Infos</string>
     <string name="txt_StudentInfo">Etudiant</string>
     <string name="txt_Categories">Rayons</string>
-    <string name="txt_ProductsList">Boissons</string>
+    <string name="txt_ProductsList">Produits</string>
 
     <string
         name="epsiLink"><a href="https://www.epsi.fr/">https://www.epsi.fr/</a></string>

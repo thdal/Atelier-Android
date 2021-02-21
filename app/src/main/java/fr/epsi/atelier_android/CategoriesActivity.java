@@ -70,6 +70,7 @@ public class CategoriesActivity extends AtelierAndroidActivity{
                     public void onClick(View v) {
                         Intent intent = new Intent(CategoriesActivity.this,ProductsListActivity.class);
                         intent.putExtra("cheminJson", cheminJson);
+                        intent.putExtra("title", title);
                         startActivity(intent);
                     }
                 });
