@@ -32,6 +32,7 @@ public class ProductsListActivity extends AtelierAndroidActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_list);
+        // bouton retour arrière
         ImageView imageViewBack = findViewById(R.id.imageViewBack);
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +41,11 @@ public class ProductsListActivity extends AtelierAndroidActivity {
             }
         });
 
-        Intent myIntent = getIntent(); // gets the previously created intent
+        Intent myIntent = getIntent();
         String title = myIntent.getStringExtra("title");
         TextView textViewTitle = (TextView)findViewById(R.id.textViewTitle);
         textViewTitle.setText(title);
         String cheminJson = myIntent.getStringExtra("cheminJson");
-        System.out.println(cheminJson);
         //Je dois ajouter ces lignes afin de pouvoir faire mon appel asynchrone au WS dans le onCreate
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -68,7 +68,7 @@ public class ProductsListActivity extends AtelierAndroidActivity {
                 Picasso.get().load(cheminPicture).into(imageView);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(120, 120);
                 imageView.setLayoutParams(layoutParams);
-                // Création dynamique des éléments dans la vue
+                // Création dynamique des éléments de la vue
                 TextView textViewName = new TextView(this);
                 TextView textViewDescription = new TextView(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -93,6 +93,17 @@ public class ProductsListActivity extends AtelierAndroidActivity {
                 l2.addView(l3);
                 l3.addView(textViewName);
                 l3.addView(textViewDescription);
+                // Pour finir on gére le onClick pour afficher les détails d'un produit
+                l2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ProductsListActivity.this,ProductDetailsActivity.class);
+                        intent.putExtra("name", name);
+                        intent.putExtra("description", description);
+                        intent.putExtra("cheminPicture", cheminPicture);
+                        startActivity(intent);
+                    }
+                });
             }
         } catch (JSONException e) {
             e.printStackTrace();

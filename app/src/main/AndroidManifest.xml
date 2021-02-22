@@ -18,6 +18,7 @@
         <activity android:name=".GroupInfosActivity"/>
         <activity android:name=".StudentInfoActivity"/>
         <activity android:name=".ProductsListActivity"/>
+        <activity android:name=".ProductDetailsActivity"/>
         <activity android:name=".SplashActivity">
         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

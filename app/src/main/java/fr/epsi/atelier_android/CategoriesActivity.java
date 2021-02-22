@@ -76,18 +76,17 @@ public class CategoriesActivity extends AtelierAndroidActivity{
                 });
                 //Ensuite on gère l'affichage de celui-ci, la partie front
                 LinearLayout l = (LinearLayout) findViewById(R.id.linearLayoutCategories);
-                //newButton.setGravity(Gravity.CENTER);
                 newButton.setText(title);
-                //newButton.setBackgroundColor(0xFF99D6D6);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.MATCH_PARENT,
                         FrameLayout.LayoutParams.WRAP_CONTENT
                 );
                 newButton.setMaxWidth(200);
                 params.gravity = Gravity.CENTER_HORIZONTAL;
-                //params.setMargins(0, 0, 0, 50);
+                params.setMargins(0,0,0,10);
                 newButton.setLayoutParams(params);
                 newButton.requestLayout();
+                newButton.setBackgroundColor(getColor(R.color.cat_btn));
                 l.addView(newButton);
             }
         } catch (JSONException e) {

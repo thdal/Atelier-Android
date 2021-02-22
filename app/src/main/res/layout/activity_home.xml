@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/holo_red_light">
+        android:background="@color/top_bar">
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -33,18 +33,22 @@
 
             <Button
                 android:id="@+id/buttonZone1"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="40dp"
-                android:text="Zone 1"/>
+                android:text="Zone 1"
+                android:textColor="@color/btn_color"
+                style="?attr/materialButtonOutlinedStyle"/>
 
             <Button
                 android:id="@+id/buttonZone2"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:text="Zone 2"/>
+                android:text="Zone 2"
+                android:textColor="@color/btn_color"
+                style="?attr/materialButtonOutlinedStyle"/>
         </LinearLayout>
     </ScrollView>
 
