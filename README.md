@@ -2,4 +2,6 @@
 
 -------------
 
-![alt text](https://github.com/thdal/Atelier-Android/blob/master/Android.png)
+<p align="center">
+  <img src="https://github.com/thdal/Atelier-Android/blob/master/Android.png" />
+</p>
